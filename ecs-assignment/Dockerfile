@@ -13,7 +13,7 @@
 # RUN yarn install
 # RUN yarn build
 
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY . .
 RUN apk add --no-cache python3 make g++
