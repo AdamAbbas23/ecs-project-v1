@@ -34,7 +34,7 @@ assume_role_policy = jsonencode({
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
         StringLike = {
-          "token.actions.githubusercontent.com:sub" = "repo:AdamAbbas23/ecs-project-v1:*"
+          "token.actions.githubusercontent.com:sub" = "repo:AdamAbbas23@119342872/ecs-project-v1@1358528017:*"
         }
       }
     }
