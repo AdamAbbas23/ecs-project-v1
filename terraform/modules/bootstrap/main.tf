@@ -30,18 +30,12 @@ assume_role_policy = jsonencode({
       }
       Action = "sts:AssumeRoleWithWebIdentity"
       Condition = {
-        # StringEquals = {
-        #   "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
-        #   "token.actions.githubusercontent.com:sub" = "repo:AdamAbbas23/ecs-project-v1:ref:refs/heads/main"
-        # }
-        "Condition": {
-        "StringEquals":{
-          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
-        },
-        "StringLike":{
-          "token.actions.githubusercontent.com:sub": "repo:AdamAbbas23/ecs-project-v1:*"
+        StringEquals = {
+          "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
-}
+        StringLike = {
+          "token.actions.githubusercontent.com:sub" = "repo:AdamAbbas23/ecs-project-v1:*"
+        }
       }
     }
   ]
