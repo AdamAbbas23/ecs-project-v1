@@ -123,7 +123,6 @@ const AppLayout: FC<PropsWithChildren<AppLayoutProps>> = ({
           e.stopPropagation();
           setContentType(undefined);
           void navigate(e.detail.href);
-          // navigate(e.detail.href); 
         }
       },
       [navigate],
