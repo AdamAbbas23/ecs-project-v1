@@ -76,7 +76,7 @@ const Full: FC = () => {
   }, [navigate, searchParms, workspaceId]);
 
   const handleThreatListView = useCallback((filter?: ThreatStatementListFilter) => {
-     void navigate(generateUrl(ROUTE_THREAT_LIST, searchParms, workspaceId), {
+    void navigate(generateUrl(ROUTE_THREAT_LIST, searchParms, workspaceId), {
       state: filter ? {
         filter,
       } : undefined,
@@ -156,7 +156,7 @@ const Full: FC = () => {
   }, [navigate, workspaceId, searchParms]);
 
   const handleDefineWorkload = useCallback(() => {
-    navigate(generateUrl(ROUTE_APPLICATION_INFO, searchParms, workspaceId));
+    void navigate(generateUrl(ROUTE_APPLICATION_INFO, searchParms, workspaceId));
   }, [navigate, workspaceId, searchParms]);
 
   const notifications = useNotifications();
