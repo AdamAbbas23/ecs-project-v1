@@ -15,9 +15,9 @@
 
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
 COPY . .
+RUN apk add --no-cache python3 make g++
+RUN yarn install
 RUN yarn build
 
 #production
