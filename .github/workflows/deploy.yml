@@ -1,0 +1,53 @@
+name : deploy
+
+on:
+  workflow_run:
+    workflows: ["docker build push"]
+    types: [completed]
+
+env:
+    AWS_REGION: eu-west-2
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write   # Required for OIDC authentication with AWS
+            contents: read   
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+          - name: terraform
+            uses: hashicorp/setup-terraform@v4
+          - name: Configure AWS credentials (OIDC)
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+              role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+              aws-region: ${{ env.AWS_REGION }}
+          - name: Terraform fmt
+            id: fmt
+            run: terraform fmt -check
+            continue-on-error: true
+
+          - name: Terraform Init
+            id: init
+            run: terraform init -input=false
+
+          - name: Terraform Validate
+            id: validate
+            run: terraform validate -no-color
+
+          - name: Terraform Plan
+            id: plan
+            run: terraform plan -no-color -input=false
+            continue-on-error: true
+
+          - name: Terraform Apply
+            run: terraform apply -auto-approve -var="image_tag=${{ github.sha }}"
+          
+          - name: Health check
+            run: curl --fail https://tm.tca-aa-ecs.com
+
+    
+
