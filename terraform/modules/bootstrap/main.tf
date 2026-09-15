@@ -6,6 +6,16 @@
 #     Environment = "Dev"
 #   }
 # }
+resource "aws_s3_bucket" "ecs-s3" {
+  bucket = "ecs-aa-bucket-aa"
+}
+resource "aws_s3_bucket_versioning" "ecs_versioning" {
+  bucket = aws_s3_bucket.ecs-s3.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_iam_openid_connect_provider" "ecsoidc" {
   url = "https://token.actions.githubusercontent.com"
 

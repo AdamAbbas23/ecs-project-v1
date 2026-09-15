@@ -6,6 +6,14 @@ terraform {
     }
   }
 }
+terraform {
+  backend "s3" {
+    bucket = "ecs-aa-bucket-aa"
+    key    = "terraform.tfstate"
+    region = "eu-west-2"
+    use_lockfile = true
+  }
+}
 
 # Configure the AWS Provider
 provider "aws" {
@@ -52,3 +60,4 @@ module "route53" {
   zone_id = var.zone_id
   hosted_zone_id = var.zone_id
 }
+
