@@ -14,7 +14,9 @@ variable "project_name" {
 }
 variable "domain_name" {
   type = string
+  default = "tm.tca-aa-ecs.com"
 }
 variable "zone_id" {
   type = string
+  default = "Z04171023TM1FNDUUSEWC"
 }
