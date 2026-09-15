@@ -13,3 +13,7 @@ variable "ecs_tasks_sg_id" {
 variable "target_group_arn" {
   type = string
 }
+variable "image_tag" {
+  type = string
+  default = "latest"
+}

@@ -20,3 +20,7 @@ variable "zone_id" {
   type = string
   default = "Z04171023TM1FNDUUSEWC"
 }
+variable "image_tag" {
+  type = string
+  default = "latest"
+}

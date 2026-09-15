@@ -52,6 +52,7 @@ module "ecs" {
   execution_role_arn = module.iam.execution_role_arn
   ecs_tasks_sg_id = module.security_groups.ecs_tasks_sg_id
   target_group_arn = module.alb.target_group_arn
+  image_tag = var.image_tag
 }
 module "route53" {
   source = "./modules/route53"
