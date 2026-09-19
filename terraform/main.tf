@@ -47,7 +47,7 @@ module "alb" {
 }
 module "ecs" {
   source = "./modules/ecs"
-  ecr_image_url = "${module.aws_ecr_repository.repository_url}:latest"
+  ecr_image_url = "${module.aws_ecr_repository.repository_url}"
   private_subnet_ids = module.vpc.private_subnet_ids
   execution_role_arn = module.iam.execution_role_arn
   ecs_tasks_sg_id = module.security_groups.ecs_tasks_sg_id
