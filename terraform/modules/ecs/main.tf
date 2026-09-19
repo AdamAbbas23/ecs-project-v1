@@ -13,19 +13,27 @@ resource "aws_ecs_task_definition" "ecs-service" {
     execution_role_arn = var.execution_role_arn
     cpu       = 256
     memory    = 512
-    container_definitions = jsonencode([
-    {
-      name      = "ecs"
-      image     = "${var.ecr_image_url}:${var.image_tag}"
-      essential = true
-      portMappings = [
-        {
-          containerPort = 80
-          hostPort      = 80
-        }
-      ]
+container_definitions = jsonencode([
+  {
+    name      = "ecs"
+    image     = "${var.ecr_image_url}:${var.image_tag}"
+    essential = true
+    portMappings = [
+      {
+        containerPort = 80
+        hostPort      = 80
+      }
+    ]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = "/ecs/ecs-service"
+        "awslogs-region"        = "eu-west-2"
+        "awslogs-stream-prefix" = "ecs"
+      }
     }
-  ])
+  }
+])
   runtime_platform {
   operating_system_family = "LINUX"
   cpu_architecture        = "ARM64"
@@ -48,4 +56,7 @@ resource "aws_ecs_service" "ecs-service" {
     container_name   = "ecs"
     container_port   = 80
   }
+}
+resource "aws_cloudwatch_log_group" "ecs" {
+  name = "/ecs/ecs-service"
 }
